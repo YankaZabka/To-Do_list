@@ -1,0 +1,23 @@
+.nav {
+  background-color: #550DC9;
+  height: 100%;
+  width: 52px;
+
+  position: fixed;
+  .btn {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 24px;
+
+    background-color: #440BA0;
+    .btnImg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+
+      background: url("../data/img/btnImg.png") center/100% 100% no-repeat;}
+  }
+}
