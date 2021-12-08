@@ -1,0 +1,24 @@
+.userProfile {
+  display: flex;
+  align-items: center;
+  .userName {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 19.07px;
+
+    margin-right: 8px;
+  }
+  .userAvatar {
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    margin-right: 11px;
+
+    background: url("../data/img/userAvatar.png") center/100% 100% no-repeat;
+  }
+  select {
+    border: none;
+    background-color: #FFFFFF;
+    margin-right: 27px;
+  }
+}
