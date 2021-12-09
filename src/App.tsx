@@ -2,8 +2,8 @@ import React from 'react';
 import classes from "./App.module.scss"
 import Header from "./components/Header";
 import NavBar from "./components/NavBar";
-import ToDoList from "./components/ToDoList";
-import CompletedList from "./components/CompletedList";
+import ToDoList from "./components/To-Do/ToDoList";
+import CompletedList from "./components/To-Do/CompletedList";
 
 function App() {
     return (

@@ -46,40 +46,23 @@
       border: 1px solid #550DC9;
       border-radius: 4px;
       background-color: #550DC9;
-      background-image: url("../data/img/inputChecked.svg");
+      background-image: url("../../data/img/inputChecked.svg");
     }
 
   }
   .ToDo_btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     margin-right: 15px;
-    width: 76px;
-    .editBtn {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      cursor: pointer;
-
-      background: url("../data/img/editButton.svg") center/100% 100% no-repeat;
-    }
-    .copyBtn {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      cursor: pointer;
-
-      background: url("../data/img/copyButton.svg") center/100% 100% no-repeat;
-    }
     .deleteBtn {
       width: 20px;
       height: 20px;
       flex-shrink: 0;
       cursor: pointer;
 
-      background: url("../data/img/deleteButton.svg") center/100% 100% no-repeat;
+      background: url("../../data/img/deleteButton.svg") center/100% 100% no-repeat;
     }
   }
 }
