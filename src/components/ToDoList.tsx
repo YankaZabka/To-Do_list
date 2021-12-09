@@ -26,8 +26,6 @@ const ToDoList = () => {
             <ToDo/>
             <ToDo/>
 
-
-
         </div>
     );
 };

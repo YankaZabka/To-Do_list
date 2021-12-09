@@ -52,27 +52,10 @@
   }
   .ToDo_btns {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     margin-right: 15px;
-    width: 76px;
-    .editBtn {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      cursor: pointer;
-
-      background: url("../data/img/editButton.svg") center/100% 100% no-repeat;
-    }
-    .copyBtn {
-      width: 20px;
-      height: 20px;
-      flex-shrink: 0;
-      cursor: pointer;
-
-      background: url("../data/img/copyButton.svg") center/100% 100% no-repeat;
-    }
     .deleteBtn {
       width: 20px;
       height: 20px;
