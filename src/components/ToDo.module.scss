@@ -1,0 +1,81 @@
+.ToDo {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+
+  .ToDo__leftSide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    label {
+      color: #373737;
+      font-size: 14px;
+      margin-left: 8px;
+    }
+
+    input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+    }
+    input+label {
+      display: inline-flex;
+      align-items: center;
+      user-select: none;
+    }
+    input+label::before {
+      content: '';
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      flex-shrink: 0;
+      flex-grow: 0;
+      border: 1px solid #ECECEC;
+      border-radius: 4px;
+      margin-right: 8px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 50% 50%;
+    }
+    input:checked+label::before {
+      border: 1px solid #550DC9;
+      border-radius: 4px;
+      background-color: #550DC9;
+      background-image: url("../data/img/inputChecked.svg");
+    }
+
+  }
+  .ToDo_btns {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-right: 15px;
+    width: 76px;
+    .editBtn {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+
+      background: url("../data/img/editButton.svg") center/100% 100% no-repeat;
+    }
+    .copyBtn {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+
+      background: url("../data/img/copyButton.svg") center/100% 100% no-repeat;
+    }
+    .deleteBtn {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+
+      background: url("../data/img/deleteButton.svg") center/100% 100% no-repeat;
+    }
+  }
+}

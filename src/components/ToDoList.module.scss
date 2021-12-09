@@ -1,0 +1,99 @@
+@mixin input_placeholder {
+  color: #CACACA;
+  font-size: 14px;
+  line-height: 19.07px;
+}
+
+.ToDoList {
+  width: 60%;
+
+  .ToDoHeader {
+    display: flex;
+
+    input {
+      width: 100%;
+
+      border: 1px solid #ECECEC;
+      border-radius: 4px;
+
+      &::-webkit-input-placeholder {
+        @include input_placeholder
+      }
+
+      &::-moz-placeholder {
+        @include input_placeholder
+      }
+
+      &:-ms-input-placeholder {
+        @include input_placeholder
+      }
+    }
+
+    .AddBtn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 50px;
+      height: 40px;
+
+      background-color: #550DC9;
+      color: white;
+      font-size: 14px;
+
+      border-radius: 4px;
+    }
+  }
+
+  .ToDoCounters {
+    display: flex;
+
+    .totalAmount {
+      font-size: 12px;
+      line-height: 16px;
+      color: #550DC9;
+      background-color: #F6FCFF;
+
+      text-align: center;
+      padding: 4px;
+      border-radius: 4px;
+
+      margin: 8px 2px 0 0;
+    }
+
+    .todoAmount {
+      font-size: 10px;
+      line-height: 14px;
+      color: #0D9CC9;
+      background-color: #F6FCFF;
+
+      text-align: center;
+      padding: 3px;
+      border-radius: 4px;
+
+      margin: 8px 2px 0 0;
+    }
+
+    .completedAmount {
+      font-size: 10px;
+      line-height: 14px;
+      color: #0DC958;
+      background-color: #F6FCFF;
+
+      text-align: center;
+      padding: 3px;
+      border-radius: 4px;
+
+      margin: 8px 2px 0 0;
+    }
+  }
+
+  .ToDoTitle {
+    color: #373737;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+
+    margin: 20px 0 8px 0;
+  }
+}
