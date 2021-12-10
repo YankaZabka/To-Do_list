@@ -38,13 +38,23 @@ function App() {
                         }}
                         onCopy={(task) => setTasks(prev => prev ? [...prev, {userId: task.userId, id: Date.now(), title: task.title, completed: task.completed}] : undefined)}
                         onDelete={(task) => setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)}
+                        onCompletedChange={(task) => {
+                            setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+                            setCompletedTasks(prev => {
+                                if (!prev) {
+                                    return [task]
+                                } else return [...prev, task]
+                            })
+                        }}
                         onCurrentChange={value => setCurrentTask(value)}
                         currentTask={currentTask}
                         tasks={tasks}
                         completedTasks={completedTasks}
                     />
 
-                    <CompletedList/>
+                    <CompletedList
+                        completedTasks={completedTasks}
+                    />
 
                 </div>
 

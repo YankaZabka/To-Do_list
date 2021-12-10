@@ -7,13 +7,20 @@ interface ToDoProps {
     onCopy(): void
 
     onDelete(): void
+
+    onCompletedChange(): void
 }
 
-const ToDo = ({taskText, onCopy, onDelete}: ToDoProps) => {
+const ToDo = ({taskText, onCopy, onDelete, onCompletedChange}: ToDoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
-                <input type="checkbox" id="checkbox" defaultChecked={false}/>
+                <input
+                    type="checkbox"
+                    id="checkbox"
+                    defaultChecked={false}
+                    onClick={() => onCompletedChange()}
+                />
                 <label htmlFor={"checkbox"}>{taskText}</label>
             </div>
             <div className={classes.ToDo_btns}>

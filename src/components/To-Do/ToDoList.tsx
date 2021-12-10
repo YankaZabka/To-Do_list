@@ -14,11 +14,13 @@ interface ToDoListProps {
 
     onDelete(value: IToDo): void
 
+    onCompletedChange(value: IToDo): void
+
     tasks: Array<IToDo> | undefined
     completedTasks: Array<IToDo> | undefined
 }
 
-const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, tasks, completedTasks}: ToDoListProps) => {
+const ToDoList = ({onAdd, onCopy, onDelete, onCompletedChange, currentTask, onCurrentChange, tasks, completedTasks}: ToDoListProps) => {
     return (
         <div className={classes.ToDoList}>
 
@@ -48,7 +50,7 @@ const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, tasks,
                         }
                     </div>
 
-                    <div className={classes.ToDoTitle}>To do {tasks.length}</div>
+                    <div className={classes.ToDoTitle}>To do ({tasks.length})</div>
                 </>
                 : null
             }
@@ -59,6 +61,7 @@ const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, tasks,
                         taskText={task.title}
                         onCopy={() => onCopy(task)}
                         onDelete={() => onDelete(task)}
+                        onCompletedChange={()=> onCompletedChange(task)}
                         key={task.id}
                     />
                 })
