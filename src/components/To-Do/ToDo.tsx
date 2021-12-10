@@ -3,9 +3,13 @@ import classes from "./ToDo.module.scss";
 
 interface ToDoProps {
     taskText: string
+
+    onCopy(): void
+
+    onDelete(): void
 }
 
-const ToDo = ({taskText}: ToDoProps) => {
+const ToDo = ({taskText, onCopy, onDelete}: ToDoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
@@ -13,9 +17,13 @@ const ToDo = ({taskText}: ToDoProps) => {
                 <label htmlFor={"checkbox"}>{taskText}</label>
             </div>
             <div className={classes.ToDo_btns}>
-                <div className={classes.editBtn}/>
-                <div className={classes.copyBtn}/>
-                <div className={classes.deleteBtn}/>
+                <div className={classes.editBtn} />
+                <div className={classes.copyBtn}
+                     onClick={() => onCopy()}
+                />
+                <div className={classes.deleteBtn}
+                     onClick={() => onDelete()}
+                />
             </div>
         </div>
     );

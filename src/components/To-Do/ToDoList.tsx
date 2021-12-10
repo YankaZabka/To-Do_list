@@ -10,10 +10,15 @@ interface ToDoListProps {
 
     onAdd(): void
 
+    onCopy(value: IToDo): void
+
+    onDelete(value: IToDo): void
+
     tasks: Array<IToDo> | undefined
+    completedTasks: Array<IToDo> | undefined
 }
 
-const ToDoList = ({onAdd, currentTask, onCurrentChange, tasks}: ToDoListProps) => {
+const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, tasks, completedTasks}: ToDoListProps) => {
     return (
         <div className={classes.ToDoList}>
 
@@ -31,12 +36,16 @@ const ToDoList = ({onAdd, currentTask, onCurrentChange, tasks}: ToDoListProps) =
                 </div>
             </div>
 
-            {tasks
+            {tasks && tasks.length
                 ? <>
                     <div className={classes.ToDoCounters}>
-                        <div className={classes.totalAmount}>Total: {tasks.length}</div>
-                        <div className={classes.todoAmount}>To do: 3</div>
-                        <div className={classes.completedAmount}>Completed: 4</div>
+                        <div
+                            className={classes.totalAmount}>Total: {tasks.length + (completedTasks ? completedTasks.length : 0)}</div>
+                        <div className={classes.todoAmount}>To do: {tasks.length}</div>
+                        {completedTasks
+                            ? <div className={classes.completedAmount}>Completed: {completedTasks.length}</div>
+                            : null
+                        }
                     </div>
 
                     <div className={classes.ToDoTitle}>To do {tasks.length}</div>
@@ -48,6 +57,8 @@ const ToDoList = ({onAdd, currentTask, onCurrentChange, tasks}: ToDoListProps) =
                 ? tasks.map(task => {
                     return <ToDo
                         taskText={task.title}
+                        onCopy={() => onCopy(task)}
+                        onDelete={() => onDelete(task)}
                         key={task.id}
                     />
                 })

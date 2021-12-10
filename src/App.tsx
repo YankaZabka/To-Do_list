@@ -9,6 +9,7 @@ import IToDo from "./interfaces/IToDo";
 function App() {
     const [currentTask, setCurrentTask] = useState<string>("")
     const [tasks, setTasks] = useState<Array<IToDo> | undefined>()
+    const [completedTasks, setCompletedTasks] = useState<Array<IToDo> | undefined>()
 
     return (
         <div className={classes.App}>
@@ -35,9 +36,12 @@ function App() {
                                 } else return [...prev, {userId: 1, id: Date.now(), title: currentTask, completed: false}]
                             })
                         }}
+                        onCopy={(task) => setTasks(prev => prev ? [...prev, {userId: task.userId, id: Date.now(), title: task.title, completed: task.completed}] : undefined)}
+                        onDelete={(task) => setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)}
                         onCurrentChange={value => setCurrentTask(value)}
                         currentTask={currentTask}
                         tasks={tasks}
+                        completedTasks={completedTasks}
                     />
 
                     <CompletedList/>
