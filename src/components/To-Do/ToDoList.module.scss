@@ -7,6 +7,10 @@
 .ToDoList {
   width: 60%;
 
+  @media (max-width: 1080px) {
+    width: 100%;
+  }
+
   .ToDoHeader {
     display: flex;
 
