@@ -49,7 +49,7 @@ function App() {
                         }}
                         onCompletedChange={(task) => {
                             setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-                            setCompletedTasks(prev => prev ? [...prev, task] : [task])
+                            setCompletedTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{...task, completed: !task.completed}])
                         }}
                         onCurrentChange={value => setInputText(value)}
                         currentTask={inputText}
@@ -62,7 +62,7 @@ function App() {
                         completedTasks={completedTasks}
                         onCompletedChange={(task) => {
                             setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-                            setTasks(prev => prev ? [...prev, task] : [task])
+                            setTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{...task, completed: !task.completed}])
                         }}
                     />
 
