@@ -76,7 +76,7 @@ const ToDoList = ({onAdd, onCopy, onDelete, onEdit, onEditedTaskIdChange, curren
                     return <ToDo
                         task={task}
                         onCopy={() => {
-                            if (inputBtnValue === "Edit") {
+                            if (inputBtnValue === "Save") {
                                 alert("Сomplete current editing please")
                                 return
                             }
@@ -84,7 +84,7 @@ const ToDoList = ({onAdd, onCopy, onDelete, onEdit, onEditedTaskIdChange, curren
                             onCopy(task)
                         }}
                         onDelete={() => {
-                            if (inputBtnValue === "Edit") {
+                            if (inputBtnValue === "Save") {
                                 alert("Сomplete current editing please")
                                 return
                             }
@@ -92,17 +92,17 @@ const ToDoList = ({onAdd, onCopy, onDelete, onEdit, onEditedTaskIdChange, curren
                             onDelete(task)
                         }}
                         onEdit={() => {
-                            if (inputBtnValue === "Edit") {
+                            if (inputBtnValue === "Save") {
                                 alert("Сomplete current editing please")
                                 return
                             }
 
                             onCurrentChange(task.title)
                             onEditedTaskIdChange(task.id)
-                            setInputBtnValue("Edit")
+                            setInputBtnValue("Save")
                         }}
                         onCompletedChange={() => {
-                            if (inputBtnValue === "Edit") {
+                            if (inputBtnValue === "Save") {
                                 alert("Сomplete current editing please")
                                 return
                             }
