@@ -9,10 +9,12 @@ interface ToDoProps {
 
     onDelete(): void
 
+    onEdit(): void
+
     onCompletedChange(): void
 }
 
-const ToDo = ({task, onCopy, onDelete, onCompletedChange}: ToDoProps) => {
+const ToDo = ({task, onCopy, onDelete, onEdit, onCompletedChange}: ToDoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
@@ -25,7 +27,9 @@ const ToDo = ({task, onCopy, onDelete, onCompletedChange}: ToDoProps) => {
                 <label htmlFor={task.id.toString()}>{task.title}</label>
             </div>
             <div className={classes.ToDo_btns}>
-                <div className={classes.editBtn} />
+                <div className={classes.editBtn}
+                     onClick={() => onEdit()}
+                />
                 <div className={classes.copyBtn}
                      onClick={() => onCopy()}
                 />

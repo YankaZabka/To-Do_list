@@ -8,6 +8,7 @@ import IToDo from "./interfaces/IToDo";
 
 function App() {
     const [inputText, setInputText] = useState<string>("")
+    const [editedTaskId, setEditedTaskId] = useState<number | undefined>()
     const [tasks, setTasks] = useState<Array<IToDo> | undefined>()
     const [completedTasks, setCompletedTasks] = useState<Array<IToDo> | undefined>()
 
@@ -38,12 +39,21 @@ function App() {
                         }}
                         onCopy={(task) => setTasks(prev => prev ? [...prev, {...task, id: Date.now()}] : undefined)}
                         onDelete={(task) => setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)}
+                        onEdit={() => {
+                            setTasks(prev => {
+                                if (!prev) return
+
+                                return prev.map(task => task.id === editedTaskId ? {...task, title: inputText} : task)
+                            })
+                            setInputText("")
+                        }}
                         onCompletedChange={(task) => {
                             setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
                             setCompletedTasks(prev => prev ? [...prev, task] : [task])
                         }}
                         onCurrentChange={value => setInputText(value)}
                         currentTask={inputText}
+                        onEditedTaskIdChange={value => setEditedTaskId(value)}
                         tasks={tasks}
                         completedTasks={completedTasks}
                     />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from "./ToDoList.module.scss"
 import ToDo from "./ToDo";
 import IToDo from "../../interfaces/IToDo";
@@ -14,27 +14,43 @@ interface ToDoListProps {
 
     onDelete(value: IToDo): void
 
+    onEdit(): void
+
     onCompletedChange(value: IToDo): void
+
+    onEditedTaskIdChange(value: number): void
 
     tasks: Array<IToDo> | undefined
     completedTasks: Array<IToDo> | undefined
 }
 
-const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, onCompletedChange, tasks, completedTasks}: ToDoListProps) => {
+const ToDoList = ({onAdd, onCopy, onDelete, onEdit, onEditedTaskIdChange, currentTask, onCurrentChange, onCompletedChange, tasks, completedTasks}: ToDoListProps) => {
+    const [inputBtnValue, setInputBtnValue] = useState("Add")
+
     return (
         <div className={classes.ToDoList}>
 
             <div className={classes.ToDoHeader}>
                 <input
                     type="text"
-                    placeholder="  + Add a task, press Enter to save"
+                    placeholder={`  + ${inputBtnValue} a task, press Enter to save`}
                     value={currentTask}
                     onChange={(e) => onCurrentChange(e.target.value)}
                 />
                 <div
-                    className={classes.AddBtn}
-                    onClick={() => currentTask.length === 0 ? null : onAdd()}
-                >Add
+                    className={classes.InputBtn}
+                    onClick={() => {
+                        if (currentTask.length === 0) {
+                            return
+                        } else if (inputBtnValue === "Add") {
+                            onAdd()
+                        } else {
+                            onEdit()
+                            setInputBtnValue("Add")
+                        }
+                    }}
+                >
+                    {inputBtnValue}
                 </div>
             </div>
 
@@ -59,9 +75,40 @@ const ToDoList = ({onAdd, onCopy, onDelete, currentTask, onCurrentChange, onComp
                 ? tasks.map(task => {
                     return <ToDo
                         task={task}
-                        onCopy={() => onCopy(task)}
-                        onDelete={() => onDelete(task)}
-                        onCompletedChange={() => onCompletedChange(task)}
+                        onCopy={() => {
+                            if (inputBtnValue === "Edit") {
+                                alert("Сomplete current editing please")
+                                return
+                            }
+
+                            onCopy(task)
+                        }}
+                        onDelete={() => {
+                            if (inputBtnValue === "Edit") {
+                                alert("Сomplete current editing please")
+                                return
+                            }
+
+                            onDelete(task)
+                        }}
+                        onEdit={() => {
+                            if (inputBtnValue === "Edit") {
+                                alert("Сomplete current editing please")
+                                return
+                            }
+
+                            onCurrentChange(task.title)
+                            onEditedTaskIdChange(task.id)
+                            setInputBtnValue("Edit")
+                        }}
+                        onCompletedChange={() => {
+                            if (inputBtnValue === "Edit") {
+                                alert("Сomplete current editing please")
+                                return
+                            }
+
+                            onCompletedChange(task)
+                        }}
                         key={task.id}
                     />
                 })
