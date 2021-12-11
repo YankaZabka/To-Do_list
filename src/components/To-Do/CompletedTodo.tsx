@@ -1,16 +1,24 @@
 import React from 'react';
 import classes from "./CompletedToDo.module.scss"
+import IToDo from "../../interfaces/IToDo";
 
 interface CompletedTodoProps {
-    taskText: string
+    task: IToDo
+
+    onCompletedChange(): void
 }
 
-const CompletedTodo = ({taskText}: CompletedTodoProps) => {
+const CompletedTodo = ({task, onCompletedChange}: CompletedTodoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
-                <input type="checkbox" id="checkbox" defaultChecked={true}/>
-                <label htmlFor={"checkbox"}>{taskText}</label>
+                <input
+                    type="checkbox"
+                    id={task.id.toString()}
+                    defaultChecked={true}
+                    onClick={() => onCompletedChange()}
+                />
+                <label htmlFor={task.id.toString()}>{task.title}</label>
             </div>
             <div className={classes.ToDo_btns}>
                 <div className={classes.deleteBtn}/>

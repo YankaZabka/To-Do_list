@@ -7,7 +7,7 @@ import CompletedList from "./components/To-Do/CompletedList";
 import IToDo from "./interfaces/IToDo";
 
 function App() {
-    const [currentTask, setCurrentTask] = useState<string>("")
+    const [inputText, setInputText] = useState<string>("")
     const [tasks, setTasks] = useState<Array<IToDo> | undefined>()
     const [completedTasks, setCompletedTasks] = useState<Array<IToDo> | undefined>()
 
@@ -24,36 +24,36 @@ function App() {
 
                     <ToDoList
                         onAdd={() => {
-                            setCurrentTask("")
+                            setInputText("")
                             setTasks(prev => {
                                 if (!prev) {
                                     return [{
                                         userId: 1,
-                                        id: 1,
-                                        title: currentTask,
+                                        id: Date.now(),
+                                        title: inputText,
                                         completed: false,
                                     }]
-                                } else return [...prev, {userId: 1, id: Date.now(), title: currentTask, completed: false}]
+                                } else return [...prev, {userId: 1, id: Date.now(), title: inputText, completed: false}]
                             })
                         }}
-                        onCopy={(task) => setTasks(prev => prev ? [...prev, {userId: task.userId, id: Date.now(), title: task.title, completed: task.completed}] : undefined)}
+                        onCopy={(task) => setTasks(prev => prev ? [...prev, {...task, id: Date.now()}] : undefined)}
                         onDelete={(task) => setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)}
                         onCompletedChange={(task) => {
                             setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-                            setCompletedTasks(prev => {
-                                if (!prev) {
-                                    return [task]
-                                } else return [...prev, task]
-                            })
+                            setCompletedTasks(prev => prev ? [...prev, task] : [task])
                         }}
-                        onCurrentChange={value => setCurrentTask(value)}
-                        currentTask={currentTask}
+                        onCurrentChange={value => setInputText(value)}
+                        currentTask={inputText}
                         tasks={tasks}
                         completedTasks={completedTasks}
                     />
 
                     <CompletedList
                         completedTasks={completedTasks}
+                        onCompletedChange={(task) => {
+                            setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+                            setTasks(prev => prev ? [...prev, task] : [task])
+                        }}
                     />
 
                 </div>

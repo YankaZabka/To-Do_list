@@ -5,9 +5,11 @@ import IToDo from "../../interfaces/IToDo";
 
 interface CompletedListProps {
     completedTasks: Array<IToDo> | undefined
+
+    onCompletedChange(value: IToDo): void
 }
 
-const CompletedList = ({completedTasks}: CompletedListProps) => {
+const CompletedList = ({completedTasks, onCompletedChange}: CompletedListProps) => {
     return (
         <div className={classes.list}>
 
@@ -18,7 +20,8 @@ const CompletedList = ({completedTasks}: CompletedListProps) => {
             {completedTasks
                 ? completedTasks.map(task => {
                     return <CompletedTodo
-                        taskText={task.title}
+                        task={task}
+                        onCompletedChange={() => onCompletedChange(task)}
                         key={task.id}
                     />
                 })

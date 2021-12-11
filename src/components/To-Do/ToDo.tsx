@@ -1,8 +1,9 @@
 import React from 'react';
 import classes from "./ToDo.module.scss";
+import IToDo from "../../interfaces/IToDo";
 
 interface ToDoProps {
-    taskText: string
+    task: IToDo
 
     onCopy(): void
 
@@ -11,17 +12,17 @@ interface ToDoProps {
     onCompletedChange(): void
 }
 
-const ToDo = ({taskText, onCopy, onDelete, onCompletedChange}: ToDoProps) => {
+const ToDo = ({task, onCopy, onDelete, onCompletedChange}: ToDoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
                 <input
                     type="checkbox"
-                    id="checkbox"
+                    id={task.id.toString()}
                     defaultChecked={false}
                     onClick={() => onCompletedChange()}
                 />
-                <label htmlFor={"checkbox"}>{taskText}</label>
+                <label htmlFor={task.id.toString()}>{task.title}</label>
             </div>
             <div className={classes.ToDo_btns}>
                 <div className={classes.editBtn} />
