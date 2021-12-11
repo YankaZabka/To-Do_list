@@ -6,10 +6,12 @@ import IToDo from "../../interfaces/IToDo";
 interface CompletedListProps {
     completedTasks: Array<IToDo> | undefined
 
+    onDelete(value: IToDo): void
+
     onCompletedChange(value: IToDo): void
 }
 
-const CompletedList = ({completedTasks, onCompletedChange}: CompletedListProps) => {
+const CompletedList = ({completedTasks, onCompletedChange, onDelete}: CompletedListProps) => {
     return (
         <div className={classes.list}>
 
@@ -21,6 +23,7 @@ const CompletedList = ({completedTasks, onCompletedChange}: CompletedListProps) 
                 ? completedTasks.map(task => {
                     return <CompletedTodo
                         task={task}
+                        onDelete={() => onDelete(task)}
                         onCompletedChange={() => onCompletedChange(task)}
                         key={task.id}
                     />

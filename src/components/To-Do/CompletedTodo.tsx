@@ -6,9 +6,11 @@ interface CompletedTodoProps {
     task: IToDo
 
     onCompletedChange(): void
+
+    onDelete(): void
 }
 
-const CompletedTodo = ({task, onCompletedChange}: CompletedTodoProps) => {
+const CompletedTodo = ({task, onCompletedChange, onDelete}: CompletedTodoProps) => {
     return (
         <div className={classes.ToDo}>
             <div className={classes.ToDo__leftSide}>
@@ -21,7 +23,9 @@ const CompletedTodo = ({task, onCompletedChange}: CompletedTodoProps) => {
                 <label htmlFor={task.id.toString()}>{task.title}</label>
             </div>
             <div className={classes.ToDo_btns}>
-                <div className={classes.deleteBtn}/>
+                <div className={classes.deleteBtn}
+                    onClick={() => onDelete()}
+                />
             </div>
 
         </div>

@@ -60,6 +60,7 @@ function App() {
 
                     <CompletedList
                         completedTasks={completedTasks}
+                        onDelete={(task) => setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)}
                         onCompletedChange={(task) => {
                             setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
                             setTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{...task, completed: !task.completed}])
