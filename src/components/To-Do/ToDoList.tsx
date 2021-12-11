@@ -60,10 +60,7 @@ const ToDoList = ({onAdd, onCopy, onDelete, onEdit, onEditedTaskIdChange, curren
                         <div
                             className={classes.totalAmount}>Total: {tasks.length + (completedTasks ? completedTasks.length : 0)}</div>
                         <div className={classes.todoAmount}>To do: {tasks.length}</div>
-                        {completedTasks
-                            ? <div className={classes.completedAmount}>Completed: {completedTasks.length}</div>
-                            : null
-                        }
+                        <div className={classes.completedAmount}>Completed: {completedTasks ? completedTasks.length : 0}</div>
                     </div>
 
                     <div className={classes.ToDoTitle}>To do ({tasks.length})</div>

@@ -16,7 +16,13 @@ const CompletedList = ({completedTasks, onCompletedChange, onDelete}: CompletedL
         <div className={classes.list}>
 
             <div className={classes.title}>
-                <h1>{completedTasks ? `Completed (${completedTasks.length})` : ""}</h1>
+                <h1>{completedTasks
+                    ? completedTasks.length === 0
+                        ? ""
+                        : `Completed (${completedTasks.length})`
+                    : ""
+                }
+                </h1>
             </div>
 
             {completedTasks
