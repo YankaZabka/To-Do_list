@@ -1,6 +1,27 @@
-# Getting Started with Create React App
+# To-Do List
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is test Task 2 for "Aristek systems" company for an internship.
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), **Typescript** and [{JSON} Placeholder](https://jsonplaceholder.typicode.com/).
+
+## Available functions
+
+### `createTask`
+
+### `copyTask`
+
+### `editTask`
+
+### `deleteTask`
+
+### `deleteCompletedTask`
+
+
+### `setCompletedToTrue`
+
+### `setCompletedToFalse`
+
+
 
 ## Available Scripts
 
