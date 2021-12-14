@@ -20,12 +20,6 @@ function App() {
             });
     }, [])
 
-    const deleteTask = (task: IToDo): void => {
-        sendRequest("DELETE", `https://jsonplaceholder.typicode.com/todos/${task.id}`)
-            .then(response => console.log(response))
-        setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-    }
-
     const createTask = (): void => {
         const body = {
             userId: 1,
@@ -88,11 +82,15 @@ function App() {
         }
     }
 
-    const deleteCompletedTask = (task: IToDo) => {
+    const deleteTask = (task: IToDo) => {
         sendRequest("DELETE", `https://jsonplaceholder.typicode.com/todos/${task.id}`)
             .then((json) => console.log(json));
 
-        setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+        if (task.completed) {
+            setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+        } else {
+            setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+        }
     }
 
     return (
@@ -121,7 +119,7 @@ function App() {
 
                     <CompletedList
                         completedTasks={completedTasks}
-                        onDelete={(task) => deleteCompletedTask(task)}
+                        onDelete={(task) => deleteTask(task)}
                         onCompletedChange={(task) => setCompletedProperty(task)}
                     />
 
