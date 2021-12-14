@@ -28,7 +28,7 @@ function App() {
             completed: false,
         }
 
-        sendRequest("POST", "`https://jsonplaceholder.typicode.com/todos`", body)
+        sendRequest("POST", `https://jsonplaceholder.typicode.com/todos`, body)
             .then((json) => console.log(json));
 
         setInputText("")
