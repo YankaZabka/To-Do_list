@@ -13,49 +13,30 @@ function App() {
     const [completedTasks, setCompletedTasks] = useState<Array<IToDo> | undefined>()
 
     useEffect(() => {
-        try {
-            fetch('https://jsonplaceholder.typicode.com/todos')
-                .then((response) => response.json())
-                .then((json: Array<IToDo>) => {
-                    setTasks(json.filter(task => !task.completed))
-                    setCompletedTasks(json.filter(task => task.completed))
-                });
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
-        }
-
+        sendRequest("GET", 'https://jsonplaceholder.typicode.com/todos')
+            .then((json: Array<IToDo>) => {
+                setTasks(json.filter(task => !task.completed))
+                setCompletedTasks(json.filter(task => task.completed))
+            });
     }, [])
 
     const deleteTask = (task: IToDo): void => {
-        try {
-            fetch(`https://jsonplaceholder.typicode.com/todos/${task.id}`, {
-                method: 'DELETE',
-            });
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
-        }
+        sendRequest("DELETE", `https://jsonplaceholder.typicode.com/todos/${task.id}`)
+            .then(response => console.log(response))
         setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
     }
 
     const createTask = (): void => {
-        try {
-            fetch(`https://jsonplaceholder.typicode.com/todos`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    userId: 1,
-                    id: Date.now(),
-                    title: inputText,
-                    completed: false,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-                .then((response) => response.json())
-                .then((json) => console.log(json));
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
+        const body = {
+            userId: 1,
+            id: Date.now(),
+            title: inputText,
+            completed: false,
         }
+
+        sendRequest("POST", "`https://jsonplaceholder.typicode.com/todos`", body)
+            .then((json) => console.log(json));
+
         setInputText("")
         setTasks(prev => {
             if (!prev) {
@@ -70,39 +51,15 @@ function App() {
     }
 
     const copyTask = (task: IToDo): void => {
-        try {
-            fetch(`https://jsonplaceholder.typicode.com/todos`, {
-                method: 'POST',
-                body: JSON.stringify({...task, id: Date.now()}),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-                .then((response) => response.json())
-                .then((json) => console.log(json));
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
-        }
+        sendRequest("POST", `https://jsonplaceholder.typicode.com/todos`, {...task, id: Date.now()})
+            .then((json) => console.log(json));
 
         setTasks(prev => prev ? [...prev, {...task, id: Date.now()}] : undefined)
     }
 
     const editTask = (): void => {
-        try {
-            fetch(`https://jsonplaceholder.typicode.com/todos/${editedTaskId}`, {
-                method: 'PATCH',
-                body: JSON.stringify({
-                    title: inputText,
-                }),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
-            })
-                .then((response) => response.json())
-                .then((json) => console.log(json));
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
-        }
+        sendRequest("PATCH", `https://jsonplaceholder.typicode.com/todos/${editedTaskId}`, {title: inputText})
+            .then((json) => console.log(json));
 
         setInputText("")
         setTasks(prev => {
@@ -113,17 +70,9 @@ function App() {
     }
 
     const setCompletedToTrue = (task: IToDo): void => {
-        fetch(`https://jsonplaceholder.typicode.com/todos/${task.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                completed: !task.completed,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
+        sendRequest("PATCH", `https://jsonplaceholder.typicode.com/todos/${task.id}`, {completed: !task.completed})
             .then((json) => console.log(json));
+
         setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
         setCompletedTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
             ...task,
@@ -132,17 +81,9 @@ function App() {
     }
 
     const setCompletedToFalse = (task: IToDo): void => {
-        fetch(`https://jsonplaceholder.typicode.com/todos/${task.id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                completed: !task.completed,
-            }),
-            headers: {
-                'Content-type': 'application/json; charset=UTF-8',
-            },
-        })
-            .then((response) => response.json())
+        sendRequest("PATCH", `https://jsonplaceholder.typicode.com/todos/${task.id}`, {completed: !task.completed})
             .then((json) => console.log(json));
+
         setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
         setTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
             ...task,
@@ -151,13 +92,9 @@ function App() {
     }
 
     const deleteCompletedTask = (task: IToDo) => {
-        try {
-            fetch(`https://jsonplaceholder.typicode.com/todos/${task.id}`, {
-                method: 'DELETE',
-            });
-        } catch (err) {
-            if (err instanceof Error) console.log(err.message)
-        }
+        sendRequest("DELETE", `https://jsonplaceholder.typicode.com/todos/${task.id}`)
+            .then((json) => console.log(json));
+
         setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
     }
 
@@ -199,3 +136,35 @@ function App() {
 }
 
 export default App;
+
+const sendRequest = (method: string, url: string, body: object | null = null) => {
+    if (method === "GET" || method === "DELETE") {
+        return fetch(url).then(response => {
+            if (response.ok) {
+                return response.json()
+            }
+
+            return response.json().then(error => {
+                throw new Error("Something went wrong: " + error.message)
+            })
+        })
+    }
+
+    const headers = {
+        "Content-Type": "application/json; charset=UTF-8"
+    }
+
+    return fetch(url, {
+        method: method,
+        body: JSON.stringify(body),
+        headers: headers
+    }).then(response => {
+        if (response.ok) {
+            return response.json()
+        }
+
+        return response.json().then(error => {
+            throw new Error(`Something went wrong : ${error.message}`)
+        })
+    })
+}
