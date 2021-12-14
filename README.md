@@ -2,7 +2,7 @@
 
 This is test Task 2 for "Aristek systems" company for an internship.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), **Typescript** and [{JSON} Placeholder](https://jsonplaceholder.typicode.com/).
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), **Typescript**, **SCSS** and [{JSON} Placeholder](https://jsonplaceholder.typicode.com/).
 
 ## Available functions
 
@@ -14,14 +14,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### `deleteTask`
 
-### `deleteCompletedTask`
-
-
-### `setCompletedToTrue`
-
-### `setCompletedToFalse`
-
-
+### `setCompletedProperty`
 
 ## Available Scripts
 
