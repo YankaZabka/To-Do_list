@@ -69,26 +69,23 @@ function App() {
         })
     }
 
-    const setCompletedToTrue = (task: IToDo): void => {
+    const setCompletedProperty = (task: IToDo): void => {
         sendRequest("PATCH", `https://jsonplaceholder.typicode.com/todos/${task.id}`, {completed: !task.completed})
             .then((json) => console.log(json));
 
-        setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-        setCompletedTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
-            ...task,
-            completed: !task.completed
-        }])
-    }
-
-    const setCompletedToFalse = (task: IToDo): void => {
-        sendRequest("PATCH", `https://jsonplaceholder.typicode.com/todos/${task.id}`, {completed: !task.completed})
-            .then((json) => console.log(json));
-
-        setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
-        setTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
-            ...task,
-            completed: !task.completed
-        }])
+        if (task.completed) {
+            setCompletedTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+            setTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
+                ...task,
+                completed: !task.completed
+            }])
+        } else {
+            setTasks(prev => prev ? prev.filter(item => item.id !== task.id) : undefined)
+            setCompletedTasks(prev => prev ? [...prev, {...task, completed: !task.completed}] : [{
+                ...task,
+                completed: !task.completed
+            }])
+        }
     }
 
     const deleteCompletedTask = (task: IToDo) => {
@@ -114,7 +111,7 @@ function App() {
                         onCopy={(task) => copyTask(task)}
                         onDelete={(task) => deleteTask(task)}
                         onEdit={() => editTask()}
-                        onCompletedChange={(task) => setCompletedToTrue(task)}
+                        onCompletedChange={(task) => setCompletedProperty(task)}
                         onCurrentChange={value => setInputText(value)}
                         currentTask={inputText}
                         onEditedTaskIdChange={value => setEditedTaskId(value)}
@@ -125,7 +122,7 @@ function App() {
                     <CompletedList
                         completedTasks={completedTasks}
                         onDelete={(task) => deleteCompletedTask(task)}
-                        onCompletedChange={(task) => setCompletedToFalse(task)}
+                        onCompletedChange={(task) => setCompletedProperty(task)}
                     />
 
                 </div>
